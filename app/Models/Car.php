@@ -15,6 +15,6 @@ class Car extends Model
 
     public function carSessions(): BelongsToMany
     {
-        return $this->belongsToMany(CarSession::class);
+        return $this->belongsToMany(Session::class);
     }
 }

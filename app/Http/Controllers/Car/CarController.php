@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
-use App\Models\CarSession;
+use App\Models\Session;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -62,7 +62,7 @@ class CarController extends Controller
     {
         $user = \Auth::user();
 
-        $carSession = new CarSession();
+        $carSession = new Session();
         $carSession->user()->associate($user);
         $carSession->car()->associate($car);
         $carSession->start_time = Carbon::now();

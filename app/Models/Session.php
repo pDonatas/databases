@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class CarSession extends Model
+class Session extends Model
 {
     use HasFactory;
+
+    protected $table = 'cars_sessions';
 
     public function user(): BelongsTo
     {

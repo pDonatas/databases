@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function carSessions(): hasMany
     {
-        return $this->hasMany(CarSession::class);
+        return $this->hasMany(Session::class);
     }
 
     public static function boot()

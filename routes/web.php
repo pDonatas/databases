@@ -27,6 +27,10 @@ Route::middleware(['web', 'auth'])->group(function() {
     Route::resource('users', UserController::class);
     Route::resource('cars', CarController::class);
     Route::get('/cars/{car:id}/rent', [CarController::class, 'rent'])->name('cars.rent');
+    Route::get('/cars/rent/stop', [CarController::class, 'stopRent'])->name('cars.rent.stop');
+    Route::get('/cars/rent/stop/{id}', [CarController::class, 'stopRentForCar'])->name('cars.rent.stop.car');
+
+    Route::get('/user/rents', [UserController::class, 'rents'])->name('user.rents');
 });
 
 Auth::routes();

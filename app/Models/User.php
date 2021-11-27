@@ -45,11 +45,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function carSessions(): hasMany
-    {
-        return $this->hasMany(Session::class);
-    }
-
     public static function boot()
     {
         parent::boot();

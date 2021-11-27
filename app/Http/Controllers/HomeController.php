@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Factory\Neo4jEntityFactory;
+use Illuminate\Contracts\Support\Renderable;
 use Laudis\Neo4j\Client;
 use Laudis\Neo4j\Databags\Statement;
 
@@ -21,19 +22,10 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
-    public function index(Client $client)
+    public function index(): Renderable
     {
-        // Test for neo4j db
-        $result = $client->runStatement(Statement::create('MATCH (n) RETURN n'));
-
-        $data = [];
-
-        foreach($result as $item) {
-            $data[] = Neo4jEntityFactory::create($item);
-        }
-
-        return view('home', compact('data'));
+        return view('home');
     }
 }

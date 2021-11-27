@@ -2,6 +2,12 @@
 
 @section('content')
     <a href="{{ route('cars.create') }}"><button class="btn btn-primary">Create new</button></a>
+
+    @if(App\Helpers\Helper::countActiveSessions(Auth::id()) !== 0)
+        <a href="{{ route('cars.rent.stop') }}"><button class="btn btn-primary">Stop all rents</button></a>
+    @endif
+
+    <a href="{{ route('user.rents') }}"><button class="btn btn-primary">Rent history</button></a>
     <table class="table">
         <thead>
             <tr>
@@ -25,8 +31,11 @@
                         @csrf
                         <button class="btn btn-primary">Delete</button>
                     </form>
-                    @if(auth()->user()->carSessions()->countActive() == 0)
+                    @if(App\Helpers\Helper::countActiveSessions(Auth::id()) == 0)
                         <a href="{{ route('cars.rent', $car->id) }}"><button class="btn btn-primary">Rent</button></a>
+                    @endif
+                    @if(App\Helpers\Helper::carRentBy(Auth::id(), $car->id))
+                        <a href="{{ route('cars.rent.stop.car', $car->id) }}"><button class="btn btn-primary">Stop rent</button></a>
                     @endif
             </tr>
         @endforeach

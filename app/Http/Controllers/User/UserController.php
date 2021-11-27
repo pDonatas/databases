@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repository\Neo4j\CarSessionRepository;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct(public CarSessionRepository $carSessionRepository) {}
+
     public function index(): View
     {
         $users = User::all();
@@ -68,5 +71,11 @@ class UserController extends Controller
         $user->delete();
 
         return response()->redirectToRoute('users.index');
+    }
+
+    public function rents() {
+        $sessions = $this->carSessionRepository->findBy('user_id', \Auth::id());
+
+        return view('user.rents', compact('sessions'));
     }
 }
